@@ -1,0 +1,74 @@
+TASKS:
+
+Q-1 : Write a Python script that asks the user for their name and favorite food using input(), then prints a welcome message like 'Hello Priya, your favorite food is Pizza!' using print().
+Ans.
+
+name = input("Enter your name: ")
+food = input("Enter your favorite food: ")
+
+print(f"Hello {name}, your favorite food is {food}!")
+
+
+
+
+
+Q-2 : Create a small program that takes two numbers as input (use input()), converts them to integers using int(), and prints their sum, difference, product, and quotient using print().<br><br><em><strong>Hint:</strong> Remember to convert the input strings to integers before performing arithmetic operations.</em>
+Ans.
+
+num1 = int(input("Enter first number: "))
+num2 = int(input("Enter second number: "))
+
+print("Sum:", num1 + num2)
+print("Difference:", num1 - num2)
+print("Product:", num1 * num2)
+print("Quotient:", num1 / num2)
+
+
+
+
+
+Q-3 : Build a Zomato-style bill calculator: take the price of a food item and quantity as input, convert them to float and int, calculate the total bill, and display it with a message like 'Your total bill is ₹350.50'.
+Ans.
+
+price = float(input("Enter food item price: ₹"))
+quantity = int(input("Enter quantity: "))
+
+total = price * quantity
+
+print(f"Your total bill is ₹{total:.2f}")
+
+
+
+
+
+Q-4 : Write a script that asks the user for their Instagram follower count, converts it to an integer, and prints the count in a formatted string like 'You have 1,500 followers'. Use escape characters to add a new line and tab before the output.<br><br><em><strong>Hint:</strong> Use '\n' for new line and '\t' for tab in your print statement.</em>
+Ans.
+
+followers = int(input("Enter your Instagram follower count: "))
+
+print(f"\tYou have {followers:,} followers")
+
+
+
+
+
+Q-5 : Create a basic calculator program that takes two numbers and an operator (+, -, *, /) as input, performs the correct operation using typecasting, and prints the result. If the user enters an invalid operator, print an error message.
+Ans.
+
+num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+operator = input("Enter operator (+, -, *, /): ")
+
+if operator == "+":
+    print("Result:", num1 + num2)
+elif operator == "-":
+    print("Result:", num1 - num2)
+elif operator == "*":
+    print("Result:", num1 * num2)
+elif operator == "/":
+    if num2 != 0:
+        print("Result:", num1 / num2)
+    else:
+        print("Error: Cannot divide by zero")
+else:
+    print("Error: Invalid operator")
