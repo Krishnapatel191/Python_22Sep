@@ -1,0 +1,50 @@
+TASKS:
+
+Q-1 : Write a Python script that uses a for loop to print out the names of five food delivery apps you use (like Zomato, Swiggy, Domino's, McDonald's, Pizza Hut), one per line.
+Ans:
+
+apps = ["Zomato", "Swiggy", "Domino's", "McDonald's", "Pizza Hut"]
+
+for app in apps:
+    print(app)
+
+
+
+
+
+Q-2 : Given the string user_bio = 'Music lover | Foodie | Traveller', use a for loop to count and print the number of characters (excluding spaces) in the bio.<br><br><em><strong>Hint:</strong> Use an if statement inside the loop to skip spaces.</em>
+Ans:
+
+user_bio = 'Music lover | Foodie | Traveller'
+count = 0
+
+for char in user_bio:
+    if char != " ":
+        count += 1
+
+print("Number of characters:", count)
+
+
+
+
+
+Q-3 : Create a list called fav_movies with the names of your three favorite movies. Use a for loop to print each movie name in uppercase letters.
+Ans:
+
+fav_movies = ["3 Idiots", "Dangal", "RRR"]
+
+for movie in fav_movies:
+    print(movie.upper())
+
+
+
+
+
+Q-4 : Build a Python script that asks the user to enter a word (like a song name), then uses a for loop to print each character on a new line, but only if the character is a vowel (a, e, i, o, u).<br><br><em><strong>Constraint:</strong> Do not use the 'in' operator inside your if statement — use multiple '==' checks instead.</em>
+Ans:
+
+word = input("Enter a word: ")
+
+for char in word:
+    if char == "a" or char == "e" or char == "i" or char == "o" or char == "u":
+        print(char)
