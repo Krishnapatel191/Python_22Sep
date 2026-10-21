@@ -1,0 +1,69 @@
+TASKS:
+
+Q-1 : Create variables to store details of a Flipkart product: product_name, price, is_available, and rating. Print each variable and its data type using the type() function.
+Ans:
+
+product_name = "Samsung Mobile"
+price = 15000
+is_available = True
+rating = 4.5
+
+print(product_name, type(product_name))
+print(price, type(price))
+print(is_available, type(is_available))
+print(rating, type(rating))
+
+
+
+
+
+Q-2 : Declare variables for a Zomato restaurant: restaurant_name, cuisine_type, average_cost, and is_open_now. Follow Python variable naming rules and print their values.
+Ans.
+
+restaurant_name = "Domino's Pizza"
+cuisine_type = "Italian"
+average_cost = 500
+is_open_now = True
+
+print(restaurant_name)
+print(cuisine_type)
+print(average_cost)
+print(is_open_now)
+
+
+
+
+
+Q-3 : Build a small snippet that creates three variables representing a Spotify playlist: playlist_title, number_of_songs, and is_public. Use the id() function to print the memory address of each variable.
+Ans.
+
+playlist_title = "My Favorite Songs"
+number_of_songs = 25
+is_public = True
+
+print(playlist_title, id(playlist_title))
+print(number_of_songs, id(number_of_songs))
+print(is_public, id(is_public))
+
+
+
+
+
+Q-4 : Given the following variables for a YouTube video — title, views, likes, is_premium — identify which are primitive and which are non-primitive data types, and explain your reasoning in comments.
+Ans.
+
+title = "Python Tutorial"  # Non-primitive (str)
+views = 10000              # Primitive (int)
+likes = 500                # Primitive (int)
+is_premium = True          # Primitive (bool)
+
+# Primitive Data Types:
+# views is a primitive data type (int) because it stores a whole number.
+# likes is a primitive data type (int) because it stores a whole number.
+# is_premium is a primitive data type (bool) because it stores True or False.
+
+# Non-Primitive Data Types:
+# title is a non-primitive data type (str) because it stores text.
+# A string is a sequence of characters.
+# It supports indexing and slicing.
+
