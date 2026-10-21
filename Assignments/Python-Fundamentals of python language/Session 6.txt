@@ -1,0 +1,87 @@
+TASKS:
+
+Q-1 : Use a while loop to print the numbers from 1 to 10, each on a new line, in the console.
+Ans:
+
+i = 1
+
+while i <= 10:
+    print(i)
+    i += 1
+
+
+
+
+
+Q-2 : Build a simple Zomato-style offer countdown: start with a variable 'minutes_left' set to 5, and use a while loop to print 'Offer ends in X minutes' until it reaches 0.
+Ans:
+
+minutes_left = 5
+
+while minutes_left > 0:
+    print(f"Offer ends in {minutes_left} minutes")
+    minutes_left -= 1
+
+print("Offer ended!")
+
+
+
+
+
+Q-3 : Write a program using a while loop to print a right-angled triangle star pattern with 5 rows, like:
+*
+**
+***
+****
+*****
+
+
+Ans:
+
+for j in range(5)
+    print("*"*(j+1))
+
+
+
+
+
+Q-4 Simulate an infinite loading spinner in the console by printing 'Loading...' repeatedly using a while True loop. Add a break condition to stop after 3 times.<br><br><em><strong>Hint:</strong> Use a counter variable and break when it reaches 3.</em>
+Ans:
+
+count = 0
+
+while True:
+    print("Loading...")
+    count += 1
+
+    if count == 3:
+        break
+
+
+
+
+
+Q-5 : Create a program that uses a while loop to print a pyramid star pattern with 4 rows, so the output looks like BookMyShow's seat rows:
+*
+***
+*****
+*******<br><br><em><strong>Hint:</strong> Use two nested while loops: one for spaces, one for stars.</em>
+
+Ans:
+
+i = 1
+
+while i <= 4:
+    j = 1
+
+    while j <= (4 - i):
+        print(" ", end="")
+        j += 1
+
+    k = 1
+    while k <= (2 * i - 1):
+        print("*", end="")
+        k += 1
+
+    print()
+    i += 1
