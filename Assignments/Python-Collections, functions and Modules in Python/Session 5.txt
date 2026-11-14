@@ -1,0 +1,222 @@
+TASKS:
+
+Q-1 : <p>Build a nested dictionary named `rooms` in a file named 'pg_room_register.py' for 6 rooms of a fictional PG in Surat. Each key is a room number such as 'R101', and each value is a dictionary with 'occupant' (a name or None), 'rent' (₹4,000 to ₹9,000) and 'sharing' (1, 2 or 3). Loop with `items()` and print one line per room showing the room, the occupant or 'Vacant', and the rent.</p>
+Ans:
+
+
+rooms = {
+    "R101": {"occupant": "Rahul", "rent": 6000, "sharing": 2},
+    "R102": {"occupant": "Priya", "rent": 8000, "sharing": 1},
+    "R103": {"occupant": None, "rent": 5000, "sharing": 3},
+    "R104": {"occupant": "Amit", "rent": 7000, "sharing": 2},
+    "R105": {"occupant": None, "rent": 4500, "sharing": 3},
+    "R106": {"occupant": "Neha", "rent": 9000, "sharing": 1}
+}
+
+print("===== PG Room Register =====\n")
+
+for room, details in rooms.items():
+
+    occupant = details["occupant"]
+
+    if occupant == None:
+        occupant = "Vacant"
+
+    print("Room:", room,
+          "| Occupant:", occupant,
+          "| Rent: ₹", details["rent"])
+
+
+
+
+
+Q-2 : <p>Extend 'pg_room_register.py' to update values in place: raise the rent of every room with sharing 1 by 10% (rounded to a whole rupee with `round()`), change the occupant of 'R103' to a new name, and set one occupied room's occupant back to None. Print the register before and after the changes. Hint: A nested value needs two keys, like `rooms['R103']['occupant'] = 'Meera'`.</p>
+Ans:
+
+rooms = {
+    "R101": {"occupant": "Rahul", "rent": 6000, "sharing": 2},
+    "R102": {"occupant": "Priya", "rent": 8000, "sharing": 1},
+    "R103": {"occupant": None, "rent": 5000, "sharing": 3},
+    "R104": {"occupant": "Amit", "rent": 7000, "sharing": 2},
+    "R105": {"occupant": None, "rent": 4500, "sharing": 3},
+    "R106": {"occupant": "Neha", "rent": 9000, "sharing": 1}
+}
+
+print("===== Before Changes =====")
+
+for room, details in rooms.items():
+    occupant = details["occupant"]
+
+    if occupant == None:
+        occupant = "Vacant"
+
+    print("Room:", room, "| Occupant:", occupant, "| Rent: ₹", details["rent"])
+
+
+for room, details in rooms.items():
+    if details["sharing"] == 1:
+        details["rent"] = round(details["rent"] * 1.10)
+
+rooms["R103"]["occupant"] = "Meera"
+
+rooms["R104"]["occupant"] = None
+
+
+print("\n===== After Changes =====")
+
+for room, details in rooms.items():
+    occupant = details["occupant"]
+
+    if occupant == None:
+        occupant = "Vacant"
+
+    print("Room:", room, "| Occupant:", occupant, "| Rent: ₹", details["rent"])
+
+
+
+
+Q-3 : <p>Add a 'meals' dictionary inside each room's dictionary in 'pg_room_register.py', with the keys 'breakfast', 'lunch' and 'dinner' set to True or False. Then print a monthly bill line for every occupied room: the rent plus ₹30 a day for breakfast, ₹60 for lunch and ₹60 for dinner, for a 30-day month. Hint: `rooms['R101']['meals']['lunch']` reads three levels deep.</p>
+Ans:
+
+rooms = {
+    "R101": {
+        "occupant": "Rahul",
+        "rent": 6000,
+        "sharing": 2,
+        "meals": {"breakfast": True, "lunch": True, "dinner": False}
+    },
+    "R102": {
+        "occupant": "Priya",
+        "rent": 8800,
+        "sharing": 1,
+        "meals": {"breakfast": True, "lunch": True, "dinner": True}
+    },
+    "R103": {
+        "occupant": "Meera",
+        "rent": 5000,
+        "sharing": 3,
+        "meals": {"breakfast": True, "lunch": False, "dinner": True}
+    },
+    "R104": {
+        "occupant": None,
+        "rent": 7000,
+        "sharing": 2,
+        "meals": {"breakfast": False, "lunch": False, "dinner": False}
+    },
+    "R105": {
+        "occupant": None,
+        "rent": 4500,
+        "sharing": 3,
+        "meals": {"breakfast": True, "lunch": False, "dinner": False}
+    },
+    "R106": {
+        "occupant": "Neha",
+        "rent": 9900,
+        "sharing": 1,
+        "meals": {"breakfast": False, "lunch": True, "dinner": True}
+    }
+}
+
+print("===== PG Monthly Bills =====\n")
+
+for room, details in rooms.items():
+
+    if details["occupant"] != None:
+
+        meal_cost = 0
+
+        if details["meals"]["breakfast"]:
+            meal_cost += 30
+
+        if details["meals"]["lunch"]:
+            meal_cost += 60
+
+        if details["meals"]["dinner"]:
+            meal_cost += 60
+
+        monthly_meal_cost = meal_cost * 30
+
+        total_bill = details["rent"] + monthly_meal_cost
+
+        print(
+            "Room:", room,
+            "| Occupant:", details["occupant"],
+            "| Rent: ₹", details["rent"],
+            "| Meal Cost: ₹", monthly_meal_cost,
+            "| Monthly Bill: ₹", total_bill
+        )
+
+
+
+
+
+Q-4 : <p>Finish 'pg_room_register.py' by asking the user for a room number and printing that room's occupant and monthly bill, or 'Vacant' for a vacant room. Test with a vacant room, an occupied room with all three meals, and 'R999', which must print 'Room not found'. Paste the three outputs as a comment at the end of the file. Hint: Check `if room in rooms:` before reading the key. Constraint: Do not use try/except.</p>
+Ans:
+
+rooms = {
+    "R101": {
+        "occupant": "Rahul",
+        "rent": 6000,
+        "sharing": 2,
+        "meals": {"breakfast": True, "lunch": True, "dinner": False}
+    },
+    "R102": {
+        "occupant": "Priya",
+        "rent": 8800,
+        "sharing": 1,
+        "meals": {"breakfast": True, "lunch": True, "dinner": True}
+    },
+    "R103": {
+        "occupant": "Meera",
+        "rent": 5000,
+        "sharing": 3,
+        "meals": {"breakfast": True, "lunch": False, "dinner": True}
+    },
+    "R104": {
+        "occupant": None,
+        "rent": 7000,
+        "sharing": 2,
+        "meals": {"breakfast": False, "lunch": False, "dinner": False}
+    },
+    "R105": {
+        "occupant": None,
+        "rent": 4500,
+        "sharing": 3,
+        "meals": {"breakfast": True, "lunch": False, "dinner": False}
+    },
+    "R106": {
+        "occupant": "Neha",
+        "rent": 9900,
+        "sharing": 1,
+        "meals": {"breakfast": False, "lunch": True, "dinner": True}
+    }
+}
+
+room = input("Enter room number: ")
+
+if room in rooms:
+    details = rooms[room]
+
+    if details["occupant"] == None:
+        print("Vacant")
+    else:
+        meal_cost = 0
+
+        if details["meals"]["breakfast"]:
+            meal_cost += 30
+
+        if details["meals"]["lunch"]:
+            meal_cost += 60
+
+        if details["meals"]["dinner"]:
+            meal_cost += 60
+
+        monthly_meal_cost = meal_cost * 30
+        total_bill = details["rent"] + monthly_meal_cost
+
+        print("Occupant:", details["occupant"])
+        print("Monthly Bill: ₹", total_bill)
+
+else:
+    print("Room not found")
+
