@@ -1,0 +1,138 @@
+TASKS:
+
+Q-1 : <p>Create a package folder named `hardware_shop` with an empty `__init__.py` and a module `stock.py`. In `stock.py` write `add_item(inventory, name, qty, price)`, which stores name: {'qty': qty, 'price': price} in a dictionary, and `low_stock(inventory, limit=5)`, which returns the names of items with quantity at or below the limit. In 'run_shop.py', saved next to the folder, import `stock` from the package, add 6 fictional items and print the low-stock names. Hint: Run 'run_shop.py' from the folder that contains `hardware_shop`.</p>
+Ans:
+
+def add_item(inventory, name, qty, price):
+    inventory[name] = {
+        "qty": qty,
+        "price": price
+    }
+
+
+def low_stock(inventory, limit=5):
+    low_items = []
+
+    for name, details in inventory.items():
+        if details["qty"] <= limit:
+            low_items.append(name)
+
+    return low_items
+
+
+********************************************
+    from hardware_shop import stock
+
+inventory = {}
+
+stock.add_item(inventory, "Mouse", 3, 450)
+stock.add_item(inventory, "Keyboard", 10, 800)
+stock.add_item(inventory, "Monitor", 2, 6500)
+stock.add_item(inventory, "USB Cable", 5, 150)
+stock.add_item(inventory, "Printer", 8, 5500)
+stock.add_item(inventory, "Headphones", 4, 1200)
+
+low_items = stock.low_stock(inventory)
+
+print("Low Stock Items:", low_items)
+
+
+
+
+
+Q-2 : <p>Add a module `pricing.py` to the `hardware_shop` package with `gst_amount(price, rate=18)` and `cart_total(inventory, cart)`, where `cart` is a dictionary of item name to quantity bought. `cart_total` returns the total including GST, rounded to 2 decimals, and prints a message and skips any cart item missing from the inventory. Import `pricing` in 'run_shop.py' and print the total for a cart of 3 items. Constraint: Use an `if ... in` check; do not use try/except.</p>
+Ans:
+
+def gst_amount(price, rate=18):
+    gst = price * rate / 100
+    return gst
+
+
+def cart_total(inventory, cart):
+    total = 0
+
+    for name, qty in cart.items():
+
+        if name in inventory:
+            price = inventory[name]["price"]
+            amount = price * qty
+
+            gst = gst_amount(amount)
+            total += amount + gst
+
+        else:
+            print(name, "is not available in inventory. Skipping.")
+
+    return round(total, 2)
+
+
+from hardware_shop import stock
+from hardware_shop import pricing
+
+
+inventory = {}
+
+stock.add_item(inventory, "Mouse", 3, 450)
+stock.add_item(inventory, "Keyboard", 10, 800)
+stock.add_item(inventory, "Monitor", 2, 6500)
+stock.add_item(inventory, "USB Cable", 5, 150)
+stock.add_item(inventory, "Printer", 8, 5500)
+stock.add_item(inventory, "Headphones", 4, 1200)
+
+low_items = stock.low_stock(inventory)
+print("Low Stock Items:", low_items)
+
+cart = {
+    "Mouse": 2,
+    "Keyboard": 1,
+    "USB Cable": 3
+}
+
+total = pricing.cart_total(inventory, cart)
+
+print("Cart Total Including GST: ₹", total)
+
+
+
+
+
+Q-3 : <p>Edit `hardware_shop/__init__.py` so it imports `add_item`, `low_stock`, `gst_amount` and `cart_total` and sets `shop_name` to a shop name you invent. Rewrite 'run_shop.py' to use only `from hardware_shop import ...`, print `shop_name`, and run two carts, one valid and one containing an item that is not in stock. Paste both outputs as a comment at the end of 'run_shop.py'. Hint: Inside `__init__.py`, write `from .stock import add_item`; the dot means this package.</p>
+Ans:
+
+from .stock import add_item, low_stock
+from .pricing import gst_amount, cart_total
+
+shop_name = "Krishna Hardware Store"
+
+
+
+from hardware_shop import add_item, low_stock, gst_amount, cart_total, shop_name
+
+inventory = {}
+
+add_item(inventory, "Mouse", 3, 450)
+add_item(inventory, "Keyboard", 10, 800)
+add_item(inventory, "Monitor", 2, 6500)
+add_item(inventory, "USB Cable", 5, 150)
+add_item(inventory, "Printer", 8, 5500)
+add_item(inventory, "Headphones", 4, 1200)
+
+print("Welcome to", shop_name)
+
+print("Low Stock Items:", low_stock(inventory))
+
+cart1 = {
+    "Mouse": 2,
+    "Keyboard": 1,
+    "USB Cable": 3
+}
+
+print("\nCart 1 Total: ₹", cart_total(inventory, cart1))
+
+cart2 = {
+    "Mouse": 1,
+    "Speaker": 2,
+    "Printer": 1
+}
+
+print("\nCart 2 Total: ₹", cart_total(inventory, cart2))
