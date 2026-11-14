@@ -1,0 +1,198 @@
+TASKS:
+
+Q-1 : <p>Create 'fest_feedback.py' with a string `feedback` of at least 60 lowercase words, made of 5 invented visitor comments about a fictional college fest. Build a dictionary `char_freq` that counts how many times each letter appears, ignoring spaces and punctuation, and print every letter and its count in alphabetical order. Hint: `ch.isalpha()` filters letters; check `if ch in char_freq` before adding one to a count. Constraint: Count with a for loop; do not use `count()`.</p>
+Ans:
+
+feedback = """
+the college fest was amazing and full of exciting activities
+the music performance was wonderful and everyone enjoyed dancing together
+the food stalls offered delicious snacks and refreshing drinks for all visitors
+the decoration was beautiful and the volunteers were friendly and helpful
+the games competitions and cultural performances made the entire event memorable
+"""
+
+char_freq = {}
+
+for ch in feedback:
+    if ch.isalpha():
+        if ch in char_freq:
+            char_freq[ch] += 1
+        else:
+            char_freq[ch] = 1
+
+print("===== Character Frequency =====")
+
+for ch in sorted(char_freq):
+    print(ch, ":", char_freq[ch])
+
+
+
+
+
+Q-2 : <p>Extend 'fest_feedback.py' with a word count. Remove the characters . , ! ? from `feedback` using `replace()`, split it into words with `split()`, and build a dictionary `word_freq` of word counts. Print only the words that appear 2 or more times, with their counts. Make sure your text repeats at least 3 words.</p>
+Ans:
+
+feedback = """
+the college fest was amazing and full of exciting activities
+the music performance was wonderful and everyone enjoyed dancing together
+the food stalls offered delicious snacks and refreshing drinks for all visitors
+the decoration was beautiful and the volunteers were friendly and helpful
+the games competitions and cultural performances made the entire event memorable
+the college fest was amazing and the music was wonderful
+the food was delicious and the volunteers were helpful
+"""
+
+char_freq = {}
+
+for ch in feedback:
+    if ch.isalpha():
+        if ch in char_freq:
+            char_freq[ch] += 1
+        else:
+            char_freq[ch] = 1
+
+print("===== Character Frequency =====")
+
+for ch in sorted(char_freq):
+    print(ch, ":", char_freq[ch])
+
+clean_feedback = feedback
+
+for ch in ".,!?":
+    clean_feedback = clean_feedback.replace(ch, "")
+
+words = clean_feedback.split()
+
+word_freq = {}
+
+for word in words:
+    if word in word_freq:
+        word_freq[word] += 1
+    else:
+        word_freq[word] = 1
+
+print("\n===== Repeated Words =====")
+
+for word, count in word_freq.items():
+    if count >= 2:
+        print(word, ":", count)
+
+
+
+
+
+Q-3 : <p>Add a 'Top word' line to 'fest_feedback.py' that loops through `word_freq.items()` and prints the most frequent word and its count, ignoring the stop words in your list `['the', 'and', 'was', 'a', 'is', 'to']`. For a tie, keep the first word found. Constraint: Do not use `max()`; track the highest count with a variable.</p>
+Ans:
+
+feedback = """
+the college fest was amazing and full of exciting activities
+the music performance was wonderful and everyone enjoyed dancing together
+the food stalls offered delicious snacks and refreshing drinks for all visitors
+the decoration was beautiful and the volunteers were friendly and helpful
+the games competitions and cultural performances made the entire event memorable
+the college fest was amazing and the music was wonderful
+the food was delicious and the volunteers were helpful
+"""
+
+# Character frequency
+char_freq = {}
+
+for ch in feedback:
+    if ch.isalpha():
+        if ch in char_freq:
+            char_freq[ch] += 1
+        else:
+            char_freq[ch] = 1
+
+print("===== Character Frequency =====")
+
+for ch in sorted(char_freq):
+    print(ch, ":", char_freq[ch])
+
+clean_feedback = feedback
+
+for ch in ".,!?":
+    clean_feedback = clean_feedback.replace(ch, "")
+
+words = clean_feedback.split()
+
+word_freq = {}
+
+for word in words:
+    if word in word_freq:
+        word_freq[word] += 1
+    else:
+        word_freq[word] = 1
+
+print("\n===== Repeated Words =====")
+
+for word, count in word_freq.items():
+    if count >= 2:
+        print(word, ":", count)
+
+stop_words = ['the', 'and', 'was', 'a', 'is', 'to']
+
+top_word = ""
+highest_count = 0
+
+for word, count in word_freq.items():
+    if word not in stop_words:
+        if count > highest_count:
+            highest_count = count
+            top_word = word
+
+print("\nTop word:", top_word, "-", highest_count)
+
+
+
+
+
+Q-4 : <p>Finish 'fest_feedback.py' by wrapping the word counting in a function `analyse(text)` that prints total words, unique words and the top word for any text the user types with `input()`. Print 'No words found' for empty text. Test with an empty text, 'Great food, great music, great crowd!' (top word: great, 3 times) and one comment of your own. Paste the outputs as a comment at the end of the file.</p>
+Ans:
+
+def analyse(text):
+    clean_text = text.lower()
+
+    for ch in ".,!?":
+        clean_text = clean_text.replace(ch, "")
+
+    words = clean_text.split()
+
+    if len(words) == 0:
+        print("No words found")
+        return
+
+    word_freq = {}
+
+    for word in words:
+        if word in word_freq:
+            word_freq[word] += 1
+        else:
+            word_freq[word] = 1
+
+    total_words = len(words)
+    unique_words = len(word_freq)
+
+    stop_words = ['the', 'and', 'was', 'a', 'is', 'to']
+
+    top_word = ""
+    highest_count = 0
+
+    for word, count in word_freq.items():
+        if word not in stop_words:
+            if count > highest_count:
+                highest_count = count
+                top_word = word
+
+    print("Total words:", total_words)
+    print("Unique words:", unique_words)
+
+    if top_word == "":
+        print("Top word: No suitable word found")
+    else:
+        print("Top word:", top_word, "-", highest_count, "times")
+
+
+feedback = input("Enter your feedback: ")
+
+analyse(feedback)
