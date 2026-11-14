@@ -1,0 +1,161 @@
+TASKS:
+
+Q-1 : <p>Write a function `monthly_emi(principal, annual_rate, years)` in a file named 'loan_emi_calculator.py' that returns the monthly EMI using EMI = P x r x (1 + r)^n / ((1 + r)^n - 1), where r is the annual rate divided by 12 and by 100, and n is years x 12. Call it with positional arguments for ₹5,00,000 at 9% for 5 years and print the EMI rounded to 2 decimals. Hint: `**` is the power operator; your answer should be close to ₹10,379.18.</p>
+Ans:
+
+def monthly_emi(principal, annual_rate, years):
+    r = annual_rate / 12 / 100
+    n = years * 12
+
+    emi = principal * r * (1 + r) ** n / ((1 + r) ** n - 1)
+
+    return emi
+
+
+emi = monthly_emi(500000, 9, 5)
+
+print("Monthly EMI: ₹", round(emi, 2))
+
+
+
+
+
+Q-2 : <p>Change `monthly_emi` in 'loan_emi_calculator.py' so that `annual_rate` defaults to 10.5 and `years` defaults to 3. Then print the EMI for three calls: only ₹2,00,000 as the principal; ₹2,00,000 with `years=7`; and all three values as keywords in the order `years=2, principal=250000, annual_rate=8`. Hint: Parameters with default values must come after those without, and a positional argument cannot follow a keyword argument in a call.</p>
+Ans:
+
+def monthly_emi(principal, annual_rate=10.5, years=3):
+    r = annual_rate / 12 / 100
+    n = years * 12
+
+    emi = principal * r * (1 + r) ** n / ((1 + r) ** n - 1)
+
+    return emi
+
+
+emi1 = monthly_emi(200000)
+
+emi2 = monthly_emi(200000, years=7)
+
+emi3 = monthly_emi(years=2, principal=250000, annual_rate=8)
+
+
+print("EMI 1: ₹", round(emi1, 2))
+print("EMI 2: ₹", round(emi2, 2))
+print("EMI 3: ₹", round(emi3, 2))
+
+
+
+
+
+Q-3 : <p>Add a function `loan_summary(principal, annual_rate=10.5, years=3, fee_percent=1)` to 'loan_emi_calculator.py' that returns a tuple of EMI, total payable, total interest and processing fee in ₹, each rounded to 2 decimals. Call it as `loan_summary(300000, fee_percent=0.5)` and print each value with a label. Constraint: Inside `loan_summary`, call `monthly_emi` using keyword arguments.</p>
+Ans:
+
+def monthly_emi(principal, annual_rate=10.5, years=3):
+    r = annual_rate / 12 / 100
+    n = years * 12
+
+    emi = principal * r * (1 + r) ** n / ((1 + r) ** n - 1)
+
+    return emi
+
+
+def loan_summary(principal, annual_rate=10.5, years=3, fee_percent=1):
+    emi = monthly_emi(
+        principal=principal,
+        annual_rate=annual_rate,
+        years=years
+    )
+
+    total_payable = emi * years * 12
+    total_interest = total_payable - principal
+    processing_fee = principal * fee_percent / 100
+
+    return (
+        round(emi, 2),
+        round(total_payable, 2),
+        round(total_interest, 2),
+        round(processing_fee, 2)
+    )
+
+
+emi, total, interest, fee = loan_summary(300000, fee_percent=0.5)
+
+print("Monthly EMI: ₹", emi)
+print("Total Payable: ₹", total)
+print("Total Interest: ₹", interest)
+print("Processing Fee: ₹", fee)
+
+
+
+
+
+Q-4 : <p>Finish 'loan_emi_calculator.py' with a while-loop menu (1 Quick EMI, 2 Full summary, 3 Exit) that asks for the principal, annual rate and years and calls the matching function. Test with ₹2,00,000 at 10.5% for 3 years, ₹8,00,000 at 11% for 10 years, and menu choice 9, which must print an error message. Paste the three outputs as a comment at the end of the file. Hint: `input()` returns text; convert it with `float()` or `int()` first.</p>
+Ans:
+
+def monthly_emi(principal, annual_rate=10.5, years=3):
+    r = annual_rate / 12 / 100
+    n = years * 12
+
+    emi = principal * r * (1 + r) ** n / ((1 + r) ** n - 1)
+
+    return emi
+
+
+def loan_summary(principal, annual_rate=10.5, years=3, fee_percent=1):
+    emi = monthly_emi(
+        principal=principal,
+        annual_rate=annual_rate,
+        years=years
+    )
+
+    total_payable = emi * years * 12
+    total_interest = total_payable - principal
+    processing_fee = principal * fee_percent / 100
+
+    return (
+        round(emi, 2),
+        round(total_payable, 2),
+        round(total_interest, 2),
+        round(processing_fee, 2)
+    )
+
+
+while True:
+    print("\n===== Loan EMI Calculator =====")
+    print("1. Quick EMI")
+    print("2. Full Summary")
+    print("3. Exit")
+
+    choice = int(input("Enter your choice: "))
+
+    if choice == 1:
+        principal = float(input("Enter principal amount: "))
+        annual_rate = float(input("Enter annual rate: "))
+        years = int(input("Enter years: "))
+
+        emi = monthly_emi(principal, annual_rate, years)
+
+        print("Monthly EMI: ₹", round(emi, 2))
+
+    elif choice == 2:
+        principal = float(input("Enter principal amount: "))
+        annual_rate = float(input("Enter annual rate: "))
+        years = int(input("Enter years: "))
+
+        emi, total, interest, fee = loan_summary(
+            principal=principal,
+            annual_rate=annual_rate,
+            years=years
+        )
+
+        print("Monthly EMI: ₹", emi)
+        print("Total Payable: ₹", total)
+        print("Total Interest: ₹", interest)
+        print("Processing Fee: ₹", fee)
+
+    elif choice == 3:
+        print("Thank you for using Loan EMI Calculator!")
+        break
+
+    else:
+        print("Invalid choice! Please enter 1, 2 or 3.")
