@@ -1,0 +1,149 @@
+TASKS:
+
+Q-1 : <p>Create a file named 'gym_members.py' with a list called `members` holding 6 member records for a fictional gym in Ahmedabad. Each record is itself a list of mixed types: name (string), age (integer), city (string), monthly fee in ₹ (number) and active status (True or False). Print one line per member showing every field, reading each field by its index.</p>
+Ans:
+
+members = [
+    ["Rahul", 25, "Ahmedabad", 1500, True],
+    ["Priya", 22, "Ahmedabad", 1200, True],
+    ["Amit", 30, "Ahmedabad", 1800, False],
+    ["Neha", 27, "Ahmedabad", 1500, True],
+    ["Karan", 24, "Ahmedabad", 1000, False],
+    ["Riya", 28, "Ahmedabad", 2000, True]
+]
+
+print("Gym Member Details:\n")
+
+for member in members:
+    print("Name:", member[0],
+          "| Age:", member[1],
+          "| City:", member[2],
+          "| Monthly Fee: ₹", member[3],
+          "| Active:", member[4])
+
+
+
+
+
+
+Q-2 : <p>Extend 'gym_members.py' to update values: raise the fee of every member from Ahmedabad by ₹200, mark one member inactive by changing the last field of their record, and change the city of another member to 'Rajkot'. Print the full list afterwards. Hint: In `members[2][3] = 1500`, the first index picks the record and the second picks the field. Constraint: Change values by index; do not rebuild the list.</p>
+Ans:
+
+members = [
+    ["Rahul", 25, "Ahmedabad", 1500, True],
+    ["Priya", 22, "Ahmedabad", 1200, True],
+    ["Amit", 30, "Ahmedabad", 1800, False],
+    ["Neha", 27, "Ahmedabad", 1500, True],
+    ["Karan", 24, "Ahmedabad", 1000, False],
+    ["Riya", 28, "Ahmedabad", 2000, True]
+]
+
+# Increase monthly fee by ₹200 for every Ahmedabad member
+for member in members:
+    if member[2] == "Ahmedabad":
+        member[3] = member[3] + 200
+
+members[0][4] = False
+
+members[1][2] = "Rajkot"
+
+print("Updated Gym Member Details:\n")
+
+for member in members:
+    print(member)
+
+
+
+
+
+Q-3 : <p>Add a clean-up step to 'gym_members.py' that removes every inactive member from `members` using `remove()`, then removes the record at index 0 using `pop()` and prints it as 'Removed: ...'. Make at least 2 members inactive before testing. Hint: Removing items while looping over the same list skips elements, so loop over a copy such as `members[:]` or first collect the records to remove.</p>
+Ans:
+
+members = [
+    ["Rahul", 25, "Ahmedabad", 1500, True],
+    ["Priya", 22, "Ahmedabad", 1200, True],
+    ["Amit", 30, "Ahmedabad", 1800, False],
+    ["Neha", 27, "Ahmedabad", 1500, True],
+    ["Karan", 24, "Ahmedabad", 1000, False],
+    ["Riya", 28, "Ahmedabad", 2000, True]
+]
+
+members[0][4] = False
+members[3][4] = False
+
+for member in members[:]:
+    if member[4] == False:
+        members.remove(member)
+
+removed = members.pop(0)
+
+print("Removed:", removed)
+
+print("\nRemaining Gym Members:")
+for member in members:
+    print(member)
+
+
+
+
+
+Q-4 : <p>Finish 'gym_members.py' with a while-loop menu (1 Show all, 2 Update fee by name, 3 Remove by name, 4 Exit). Test by updating a member's fee to ₹1,800, removing one member, and removing the unknown name 'Zoya', which must print 'Member not found'. Paste the outputs as a comment at the end of the file. Hint: Loop with `range(len(members))` to find the record whose name matches.</p>
+Ans:
+
+members = [
+    ["Rahul", 25, "Ahmedabad", 1500, True],
+    ["Priya", 22, "Ahmedabad", 1200, True],
+    ["Amit", 30, "Ahmedabad", 1800, False],
+    ["Neha", 27, "Ahmedabad", 1500, True],
+    ["Karan", 24, "Ahmedabad", 1000, False],
+    ["Riya", 28, "Ahmedabad", 2000, True]
+]
+
+while True:
+    print("\n===== Gym Members Menu =====")
+    print("1. Show all")
+    print("2. Update fee by name")
+    print("3. Remove by name")
+    print("4. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        print("\nGym Members:")
+        for member in members:
+            print(member)
+
+    elif choice == "2":
+        name = input("Enter member name: ")
+        found = False
+
+        for i in range(len(members)):
+            if members[i][0] == name:
+                members[i][3] = 1800
+                print("Fee updated successfully!")
+                found = True
+                break
+
+        if not found:
+            print("Member not found")
+
+    elif choice == "3":
+        name = input("Enter member name: ")
+        found = False
+
+        for i in range(len(members)):
+            if members[i][0] == name:
+                removed = members.pop(i)
+                print("Removed:", removed)
+                found = True
+                break
+
+        if not found:
+            print("Member not found")
+
+    elif choice == "4":
+        print("Exiting program...")
+        break
+
+    else:
+        print("Invalid choice")
