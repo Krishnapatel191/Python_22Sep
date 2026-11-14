@@ -1,0 +1,170 @@
+TASKS:
+
+Q-1 : <p>Create 'tiffin_delivery_desk.py' that uses `import math` and `math.sqrt()` to find the straight-line distance in km between a kitchen at (0, 0) and a customer at (x, y), where the user types x and y as whole numbers from 0 to 20. Print the distance rounded to 1 decimal, and 'Free delivery' when it is 5 km or less. Test with (3, 4), which must give 5.0, and with (12, 5).</p>
+Ans:
+
+import math
+
+kitchen_x = 0
+kitchen_y = 0
+
+x = int(input("Enter customer x coordinate (0-20): "))
+y = int(input("Enter customer y coordinate (0-20): "))
+
+distance = math.sqrt((x - kitchen_x)**2 + (y - kitchen_y)**2)
+
+distance = round(distance, 1)
+
+print("Delivery Distance:", distance, "km")
+
+if distance <= 5:
+    print("Free delivery")
+else:
+    print("Delivery charges applicable")
+
+
+
+
+
+Q-2 : <p>Extend 'tiffin_delivery_desk.py' to price an order. Ask for the number of tiffins (1 to 40) and print the bags needed (4 tiffins per bag, rounded up with `math.ceil()`), the free tiffins earned (1 for every 5 full tiffins, with `math.floor()`) and the delivery charge (₹10 per started km, using `math.ceil()` on the distance, ₹0 if free delivery).</p>
+Ans:
+
+import math
+
+kitchen_x = 0
+kitchen_y = 0
+
+# Customer location
+x = int(input("Enter customer x coordinate (0-20): "))
+y = int(input("Enter customer y coordinate (0-20): "))
+
+distance = math.sqrt((x - kitchen_x)**2 + (y - kitchen_y)**2)
+distance = round(distance, 1)
+
+print("Delivery Distance:", distance, "km")
+
+if distance <= 5:
+    print("Free delivery")
+    delivery_charge = 0
+else:
+    print("Delivery charges applicable")
+    delivery_charge = math.ceil(distance) * 10
+
+tiffins = int(input("Enter number of tiffins (1-40): "))
+
+bags = math.ceil(tiffins / 4)
+
+free_tiffins = math.floor(tiffins / 5)
+
+print("Bags Needed:", bags)
+print("Free Tiffins Earned:", free_tiffins)
+print("Delivery Charge: ₹", delivery_charge)
+
+
+
+
+
+Q-3 : <p>Add `random.randint()` and `random.random()` to 'tiffin_delivery_desk.py'. Give every order an ID between 1000 and 9999, printed as 'TF-1234', and run a lucky draw: if `random.random()` is below 0.2, the order gets ₹50 off. Print the random value rounded to 2 decimals and whether the discount applied. Hint: `random.random()` returns a float from 0.0 up to, but not including, 1.0.</p>
+Ans: 
+
+import math
+import random
+
+kitchen_x = 0
+kitchen_y = 0
+
+x = int(input("Enter customer x coordinate (0-20): "))
+y = int(input("Enter customer y coordinate (0-20): "))
+
+distance = math.sqrt((x - kitchen_x)**2 + (y - kitchen_y)**2)
+distance = round(distance, 1)
+
+print("Delivery Distance:", distance, "km")
+
+if distance <= 5:
+    print("Free delivery")
+    delivery_charge = 0
+else:
+    print("Delivery charges applicable")
+    delivery_charge = math.ceil(distance) * 10
+
+tiffins = int(input("Enter number of tiffins (1-40): "))
+
+bags = math.ceil(tiffins / 4)
+free_tiffins = math.floor(tiffins / 5)
+
+print("Bags Needed:", bags)
+print("Free Tiffins Earned:", free_tiffins)
+print("Delivery Charge: ₹", delivery_charge)
+
+order_id = random.randint(1000, 9999)
+print("Order ID: TF-" + str(order_id))
+
+lucky_value = random.random()
+print("Lucky Draw Value:", round(lucky_value, 2))
+
+if lucky_value < 0.2:
+    print("Discount Applied: Yes")
+    print("Discount Amount: ₹50")
+else:
+    print("Discount Applied: No")
+    print("Discount Amount: ₹0")
+
+
+
+
+
+Q-4 : <p>Finish 'tiffin_delivery_desk.py' with a loop that takes 3 orders and prints a bill for each: order ID, distance, bags, free tiffins, delivery charge, discount and total at ₹70 for each paid tiffin. Test with a customer at (3, 4) for 10 tiffins, at (12, 5) for 23 tiffins and at (0, 0) for 1 tiffin. Paste the outputs as a comment at the end of the file; the random parts will differ on every run.</p>
+Ans:
+
+import math
+import random
+
+for order in range(1, 4):
+
+    print("\n========== ORDER", order, "==========")
+
+    x = int(input("Enter customer x coordinate (0-20): "))
+    y = int(input("Enter customer y coordinate (0-20): "))
+
+    distance = math.sqrt(x**2 + y**2)
+    distance = round(distance, 1)
+
+    if distance <= 5:
+        delivery_charge = 0
+    else:
+        delivery_charge = math.ceil(distance) * 10
+
+    tiffins = int(input("Enter number of tiffins (1-40): "))
+
+    bags = math.ceil(tiffins / 4)
+    free_tiffins = math.floor(tiffins / 5)
+
+    paid_tiffins = tiffins - free_tiffins
+
+    food_amount = paid_tiffins * 70
+
+    order_id = random.randint(1000, 9999)
+
+    lucky_value = random.random()
+
+    if lucky_value < 0.2:
+        discount = 50
+        discount_status = "Yes"
+    else:
+        discount = 0
+        discount_status = "No"
+
+    total = food_amount + delivery_charge - discount
+
+    
+    print("\n---------- ORDER BILL ----------")
+    print("Order ID: TF-" + str(order_id))
+    print("Distance:", distance, "km")
+    print("Bags Needed:", bags)
+    print("Free Tiffins:", free_tiffins)
+    print("Delivery Charge: ₹", delivery_charge)
+    print("Discount Applied:", discount_status)
+    print("Discount: ₹", discount)
+    print("Total Amount: ₹", total)
+    print("--------------------------------")
