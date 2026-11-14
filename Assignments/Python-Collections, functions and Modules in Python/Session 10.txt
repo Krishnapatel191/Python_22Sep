@@ -1,0 +1,170 @@
+TASKS:
+
+Q-1 : <p>Create a module file named 'library_utils.py' with a function `days_late(issue_day, return_day)`, which returns how many days a book is late when it is kept more than 14 days (0 if not late), and `fine_amount(late_days, per_day=2)`, which returns the fine in ₹. In 'library_main.py', saved in the same folder, use `import library_utils` and print the fine for a book issued on day 10 and returned on day 31. Hint: Run 'library_main.py', not the module. Constraint: Do not call `print()` or `input()` at the top level of the module.</p>
+Ans:
+
+def days_late(issue_day, return_day):
+    days_kept = return_day - issue_day
+
+    if days_kept > 14:
+        return days_kept - 14
+    else:
+        return 0
+
+
+def fine_amount(late_days, per_day=2):
+    return late_days * per_day
+
+
+
+2. library_main.py
+
+import library_utils
+
+late = library_utils.days_late(10, 31)
+
+fine = library_utils.fine_amount(late)
+
+print("Days Late:", late)
+print("Fine Amount: ₹", fine)
+
+
+
+
+
+Q-2 : <p>Add `issue_book(register, member, title, issue_day)` and `books_of(register, member)` to 'library_utils.py'. `issue_book` appends a dictionary with those four details to the `register` list, and `books_of` returns the titles issued to that member. In 'library_main.py', bring them in with `from library_utils import issue_book, books_of`, issue 5 books to 3 invented members and print each member's titles.</p>
+Ans: 
+
+def days_late(issue_day, return_day):
+    days_kept = return_day - issue_day
+
+    if days_kept > 14:
+        return days_kept - 14
+    else:
+        return 0
+
+
+def fine_amount(late_days, per_day=2):
+    return late_days * per_day
+
+
+def issue_book(register, member, title, issue_day):
+    register.append({
+        "member": member,
+        "title": title,
+        "issue_day": issue_day
+    })
+
+
+def books_of(register, member):
+    titles = []
+
+    for book in register:
+        if book["member"] == member:
+            titles.append(book["title"])
+
+    return titles
+
+
+----library_main.py
+
+from library_utils import issue_book, books_of
+
+register = []
+
+issue_book(register, "Rahul", "Python Basics", 10)
+issue_book(register, "Priya", "Web Development", 12)
+issue_book(register, "Amit", "Data Structures", 15)
+issue_book(register, "Rahul", "Database Management", 18)
+issue_book(register, "Priya", "Java Programming", 20)
+
+members = ["Rahul", "Priya", "Amit"]
+
+for member in members:
+    print(member, ":", books_of(register, member))
+
+
+
+
+
+Q-3 : <p>Finish the program by adding the constant `LOAN_DAYS = 14` to 'library_utils.py' and using it inside `days_late`. In 'library_main.py', switch to `import library_utils as lib` and add a while-loop menu (1 Issue book, 2 Return book and show fine, 3 Exit). Test a return on time, a return 7 days late and a return 30 days late. Paste the outputs as a comment at the end of 'library_main.py'. Hint: `as lib` gives the module a short name, used like `lib.LOAN_DAYS`.</p>
+Ans:
+
+LOAN_DAYS = 14
+
+
+def days_late(issue_day, return_day):
+    days_kept = return_day - issue_day
+
+    if days_kept > LOAN_DAYS:
+        return days_kept - LOAN_DAYS
+    else:
+        return 0
+
+
+def fine_amount(late_days, per_day=2):
+    return late_days * per_day
+
+
+def issue_book(register, member, title, issue_day):
+    register.append({
+        "member": member,
+        "title": title,
+        "issue_day": issue_day
+    })
+
+
+def books_of(register, member):
+    titles = []
+
+    for book in register:
+        if book["member"] == member:
+            titles.append(book["title"])
+
+    return titles
+
+
+_____library_main.py
+
+import library_utils as lib
+
+register = []
+
+while True:
+    print("\n===== Library Menu =====")
+    print("1. Issue Book")
+    print("2. Return Book and Show Fine")
+    print("3. Exit")
+
+    choice = int(input("Enter your choice: "))
+
+    if choice == 1:
+        member = input("Enter member name: ")
+        title = input("Enter book title: ")
+        issue_day = int(input("Enter issue day: "))
+
+        lib.issue_book(register, member, title, issue_day)
+
+        print("Book issued successfully!")
+
+    elif choice == 2:
+        member = input("Enter member name: ")
+        title = input("Enter book title: ")
+        issue_day = int(input("Enter issue day: "))
+        return_day = int(input("Enter return day: "))
+
+        late = lib.days_late(issue_day, return_day)
+        fine = lib.fine_amount(late)
+
+        print("Book:", title)
+        print("Loan Period:", lib.LOAN_DAYS, "days")
+        print("Days Late:", late)
+        print("Fine Amount: ₹", fine)
+
+    elif choice == 3:
+        print("Thank you for using Library System!")
+        break
+
+    else:
+        print("Invalid choice!")
+
