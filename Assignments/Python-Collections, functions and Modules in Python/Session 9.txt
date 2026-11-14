@@ -1,0 +1,103 @@
+TASKS:
+
+Q-1 : <p>Create 'canteen_lambdas.py' with a list `menu` of 8 tuples for a fictional college canteen: (item name, price in ₹, is_veg True or False). Write one lambda that takes a menu tuple and returns a tuple of the item name in capitals and its price with 5% GST rounded to 2 decimals. Use `map()` with it and print the results. Hint: `map()` returns an iterator; wrap it in `list()` before printing.</p>
+Ans:
+
+menu = [
+    ("Gujarati Thali", 120, True),
+    ("Pizza", 150, True),
+    ("Veg Sandwich", 80, True),
+    ("Burger", 100, True),
+    ("French Fries", 70, True),
+    ("Chicken Sandwich", 130, False),
+    ("Cold Coffee", 90, True),
+    ("Noodles", 110, True)
+]
+
+gst_menu = lambda item: (item[0].upper(), round(item[1] * 1.05, 2))
+
+result = list(map(gst_menu, menu))
+
+print("===== Canteen Menu with 5% GST =====")
+
+for item in result:
+    print(item)
+
+
+
+
+
+Q-2 : <p>Add a lambda to 'canteen_lambdas.py' that is `True` only for vegetarian items priced at ₹60 or less. Use it with `filter()` on `menu` and print the items that remain. Make sure at least 3 items pass and at least 3 fail the test. Hint: `filter()` also returns an iterator, so convert it with `list()`.</p>
+Ans:
+
+menu = [
+    ("Gujarati Thali", 120, True),
+    ("Pizza", 150, True),
+    ("Veg Sandwich", 80, True),
+    ("Burger", 100, True),
+    ("French Fries", 70, True),
+    ("Chicken Sandwich", 130, False),
+    ("Cold Coffee", 90, True),
+    ("Noodles", 110, True)
+]
+
+gst_menu = lambda item: (item[0].upper(), round(item[1] * 1.05, 2))
+
+result = list(map(gst_menu, menu))
+
+print("===== Canteen Menu with 5% GST =====")
+
+for item in result:
+    print(item)
+
+
+
+
+
+Q-3 : <p>Finish 'canteen_lambdas.py' with a function `order_total(prices)` that uses `reduce()` with a lambda to add up the prices of an order, and a second lambda with a conditional expression that takes ₹15 off only when the total is above ₹200. Test with orders totalling ₹180, ₹200 and ₹260, and paste the outputs as a comment at the end of the file. Hint: Import it with `from functools import reduce`. Constraint: Each lambda must hold one expression only.</p>
+Ans:
+
+from functools import reduce
+
+menu = [
+    ("Gujarati Thali", 120, True),
+    ("Pizza", 150, True),
+    ("Veg Sandwich", 80, True),
+    ("Burger", 100, True),
+    ("French Fries", 50, True),
+    ("Chicken Sandwich", 130, False),
+    ("Cold Coffee", 60, True),
+    ("Noodles", 110, True)
+]
+
+gst_menu = lambda item: (item[0].upper(), round(item[1] * 1.05, 2))
+
+result = list(map(gst_menu, menu))
+
+print("===== Canteen Menu with 5% GST =====")
+for item in result:
+    print(item)
+
+veg_filter = lambda item: item[2] == True and item[1] <= 60
+
+filtered_menu = list(filter(veg_filter, menu))
+
+print("\n===== Vegetarian Items (₹60 or Less) =====")
+for item in filtered_menu:
+    print(item)
+
+def order_total(prices):
+    total = reduce(lambda a, b: a + b, prices)
+
+    discount = lambda amount: amount - 15 if amount > 200 else amount
+
+    return discount(total)
+
+order1 = order_total([80, 100])       # Total = 180
+order2 = order_total([100, 100])      # Total = 200
+order3 = order_total([100, 80, 80])   # Total = 260
+
+print("\n===== Order Totals =====")
+print("Order 1: ₹", order1)
+print("Order 2: ₹", order2)
+print("Order 3: ₹", order3)
