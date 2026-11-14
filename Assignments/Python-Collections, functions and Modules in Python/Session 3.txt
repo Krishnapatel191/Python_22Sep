@@ -1,0 +1,175 @@
+TASKS:
+
+Q-1 : <p>Create 'kirana_bill.py' with three lists of 8 grocery items: `items` (names), `prices` (₹ per unit, such as 49.5 or 112.75) and `qty` (1 to 5). Use `zip()` to loop through all three lists together and print each item with its line amount (price x quantity) rounded to 2 decimals with `round()`. Hint: `zip(items, prices, qty)` gives one tuple per row. Constraint: Do not use `range()` or indexes.</p>
+Ans:
+
+
+items = ["Rice", "Wheat", "Sugar", "Milk", "Oil", "Tea", "Salt", "Biscuits"]
+
+prices = [49.5, 42.75, 45, 56, 112.75, 180, 25, 30]
+
+qty = [2, 3, 1, 2, 1, 1, 2, 4]
+
+print("===== Kirana Store Bill =====\n")
+
+for item, price, quantity in zip(items, prices, qty):
+    amount = round(price * quantity, 2)
+
+    print(item, "| Price: ₹", price,
+          "| Quantity:", quantity,
+          "| Amount: ₹", amount)
+
+
+
+
+
+Q-2 : <p>Extend 'kirana_bill.py' to add 5% GST on every line. Build a new list `line_totals` with a loop, where each GST-inclusive line amount is rounded to 2 decimals, and print the bill total and the total GST. Hint: Round each line before adding it to the total, so that the printed lines add up to the printed total.</p>
+Ans:
+
+items = ["Rice", "Wheat", "Sugar", "Milk", "Oil", "Tea", "Salt", "Biscuits"]
+
+prices = [49.5, 42.75, 45, 56, 112.75, 180, 25, 30]
+
+qty = [2, 3, 1, 2, 1, 1, 2, 4]
+
+line_totals = []
+total_gst = 0
+
+print("===== Kirana Store Bill =====\n")
+
+for item, price, quantity in zip(items, prices, qty):
+    amount = price * quantity
+    gst = amount * 5 / 100
+
+    gst_amount = round(amount + gst, 2)
+    line_totals.append(gst_amount)
+
+    total_gst = total_gst + round(gst_amount - amount, 2)
+
+    print(item, "| Price: ₹", price,
+          "| Quantity:", quantity,
+          "| GST: ₹", round(gst, 2),
+          "| Amount: ₹", gst_amount)
+
+bill_total = 0
+
+for total in line_totals:
+    bill_total = bill_total + total
+
+print("\nTotal GST: ₹", round(total_gst, 2))
+print("Bill Total: ₹", round(bill_total, 2))
+
+
+
+
+
+Q-3 : <p>Add a 'Top 3 costliest items' section to 'kirana_bill.py'. Combine `line_totals` and `items` with `zip()` into a list of (amount, name) tuples, order it from highest to lowest with `sorted()` and `reverse=True`, and print the first three. Hint: Tuples are compared from the first element, so the amount must come first. Constraint: Do not use the `key` argument.</p>
+Ans:
+
+items = ["Rice", "Wheat", "Sugar", "Milk", "Oil", "Tea", "Salt", "Biscuits"]
+
+prices = [49.5, 42.75, 45, 56, 112.75, 180, 25, 30]
+
+qty = [2, 3, 1, 2, 1, 1, 2, 4]
+
+line_totals = []
+total_gst = 0
+
+print("===== Kirana Store Bill =====\n")
+
+for item, price, quantity in zip(items, prices, qty):
+    amount = price * quantity
+    gst = amount * 5 / 100
+
+    gst_amount = round(amount + gst, 2)
+    line_totals.append(gst_amount)
+
+    total_gst += round(gst_amount - amount, 2)
+
+    print(item, "| Price: ₹", price,
+          "| Quantity:", quantity,
+          "| GST: ₹", round(gst, 2),
+          "| Amount: ₹", gst_amount)
+
+bill_total = 0
+
+for total in line_totals:
+    bill_total += total
+
+print("\nTotal GST: ₹", round(total_gst, 2))
+print("Bill Total: ₹", round(bill_total, 2))
+
+
+# Top 3 Costliest Items
+item_amounts = list(zip(line_totals, items))
+
+sorted_items = sorted(item_amounts, reverse=True)
+
+print("\n===== Top 3 Costliest Items =====")
+
+for amount, name in sorted_items[:3]:
+    print(name, "| Amount: ₹", amount)
+
+
+
+
+
+Q-4 : <p>Finish 'kirana_bill.py' by building a list `premium_items` with the names of items priced above ₹100, arranging it A to Z with `.sort()`, and printing it under 'Premium items'. Make sure at least 3 of your items cost more than ₹100. Run the whole program and paste the output as a comment at the end of the file. Hint: `.sort()` returns None, so write `premium_items.sort()` on its own line.</p>
+Ans:
+
+items = ["Rice", "Wheat", "Sugar", "Milk", "Oil", "Tea", "Salt", "Biscuits"]
+
+prices = [149.5, 142.75, 45, 56, 212.75, 180, 25, 130]
+
+qty = [2, 3, 1, 2, 1, 1, 2, 4]
+
+line_totals = []
+total_gst = 0
+
+print("===== Kirana Store Bill =====\n")
+
+for item, price, quantity in zip(items, prices, qty):
+    amount = price * quantity
+    gst = amount * 5 / 100
+
+    gst_amount = round(amount + gst, 2)
+    line_totals.append(gst_amount)
+
+    total_gst += round(gst_amount - amount, 2)
+
+    print(item, "| Price: ₹", price,
+          "| Quantity:", quantity,
+          "| GST: ₹", round(gst, 2),
+          "| Amount: ₹", gst_amount)
+
+bill_total = 0
+
+for total in line_totals:
+    bill_total += total
+
+print("\nTotal GST: ₹", round(total_gst, 2))
+print("Bill Total: ₹", round(bill_total, 2))
+
+item_amounts = list(zip(line_totals, items))
+sorted_items = sorted(item_amounts, reverse=True)
+
+print("\n===== Top 3 Costliest Items =====")
+
+for amount, name in sorted_items[:3]:
+    print(name, "| Amount: ₹", amount)
+
+premium_items = []
+
+for item, price in zip(items, prices):
+    if price > 100:
+        premium_items.append(item)
+
+premium_items.sort()
+
+print("\nPremium Items:")
+for item in premium_items:
+    print(item)
+
+
+
+
